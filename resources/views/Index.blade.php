@@ -10,7 +10,7 @@
     <title>Simon Myrvold</title>
 </head>
 
-<body onload="typeWriter(), page()" class="opacity-0 transition-all duration-500">
+<body onload="typeWriter(), page()" class="opacity-0 transition-all duration-500 bg-[#F1F3F7] dark:bg-[#212427]">
 
     <div class="h-fit min-h-screen m-auto flex flex-col bg-[#F1F3F7] dark:bg-[#212427] gap-12 pb-24">
         <div class="w-full h-[300px] flex">

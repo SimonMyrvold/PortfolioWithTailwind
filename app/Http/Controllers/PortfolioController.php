@@ -90,9 +90,16 @@ class PortfolioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(portfolio $portfolio)
+    public function destroy($id)
     {
-        //
+
+        if (Auth::check()) {
+            $image = portfolio::findOrFail($id)->image;
+            unlink($image);
+            portfolio::findOrFail($id)->delete();
+            return redirect()->route('Portfolio.index');
+        }
+
     }
 
     private function storeImage($request){

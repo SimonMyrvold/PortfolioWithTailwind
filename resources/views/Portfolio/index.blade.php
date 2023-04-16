@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="public\pictures">
     <title>Portfolio</title>
 </head>
-<body onload="page()" class="opacity-0 transition-all duration-500">
+<body onload="page()" class="opacity-0 transition-all duration-500 bg-[#F1F3F7] dark:bg-[#212427]">
     <div class="flex flex-col h-fit min-h-screen w-full gap-4 bg-[#F1F3F7] dark:bg-[#212427]">
 
         <div class="p-8 h-[20px] w-[20px] fixed z-10">
-            <a href="/">
+            <a href="\">
                 <i class="border-[#212427] dark:border-[#F1F3F7] border-b-[2px] border-l-[2px] inline-block w-[20px] h-[20px] p-3 rotate-[45deg] hover:border-b-[3px] hover:border-l-[3px]"></i>
             </a>
         </div>

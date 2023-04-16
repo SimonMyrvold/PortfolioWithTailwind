@@ -8,41 +8,72 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
     <title>{{ $project->title }}</title>
 </head>
-<body onload="page()" class="opacity-0 transition-all duration-500">
-    <div class="flex flex-col h-fit min-h-screen lg:h-[100vh] w-full bg-[#F1F3F7] dark:bg-[#212427]">
 
-        <div class="p-8 h-[20px] w-[20px] fixed z-10">
-            <a href=".">
-                <i class="border-[#212427] dark:border-[#F1F3F7] border-b-[2px] border-l-[2px] inline-block w-[20px] h-[20px] p-3 rotate-[45deg] hover:border-b-[3px] hover:border-l-[3px]"></i>
-            </a>
-        </div>
-        
-        <div class="w-max h-fit ml-auto mr-auto pt-28 md:pb-28 sm:pb-28 max-sm:pb-28">
-            <h1 class="text-6xl font-semibold dark:text-white">{{ $project->title }}</h1>
-        </div>
-
-        @foreach ($tags as $tag)
-            <div class="w-max h-fit ml-auto mr-auto pb-8">
-                <h1 class="text-2xl font-semibold dark:text-white">{{ $tag }}</h1>
-            </div>
-        @endforeach
-
-
-        <form action=""></form>
-
-        
-        <div class="grid lg:grid-cols-3 lg:w-[1020px] min-[1300px]:w-[1275px] md:grid-cols-2 md:w-[768px] sm:grid-cols-1 sm:w-[640px] max-sm:grid-cols-1 max-sm:w-[90%] gap-20 m-auto transition-all pb-8">
-
-        </div>
+<body onload="page()" class="bg-[#F1F3F7] dark:bg-[#212427] font-sans leading-normal tracking-normal opacity-0">    
+    <!--Container-->
+    <div class="p-8 h-[20px] w-[20px] fixed z-10">
+        <a href="{{ URL::previous() }}">
+            <i class="border-[#212427] dark:border-[#F1F3F7] border-b-[2px] border-l-[2px] inline-block w-[20px] h-[20px] p-3 rotate-[45deg] hover:border-b-[3px] hover:border-l-[3px]"></i>
+        </a>
     </div>
+
+    <div class="container w-full md:max-w-3xl mx-auto pt-20">
+
+        <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+
+            <!--Title-->
+            <div class="font-sans">
+                <h1 class="font-bold font-sans break-normal dark:text-white pt-6 pb-2 text-3xl md:text-4xl">{{ $project->title }}</h1>
+                <p class="text-sm md:text-base font-normal text-gray-500"> {{ $project->created_at }}</p>
+            </div>
+
+            <div 
+            id="{{ $project->id }}"
+            class="w-full h-[400px] bg-cover bg-center mt-8 rounded" 
+            style="
+            background-image: url('/pictures{{ $picture_link = Str::replace('C:\Users\simon.myrvold\Desktop\PortfolioTailwind\Portfolio\public\pictures\\', '/', $project->image) }}');">
+            </div>
+
+            <p class="py-6 dark:text-white">{{ $project->description }}</p>
+            
+            <h6 class="py-2 dark:text-white font-sans hover:underline underline-offset-8 hover:font-semibold"><a target="_blank" href="{{ $project->github }}">Github</a></h6>
+
+            @if ($project->demo == 'none')
+            
+            @else
+            <h6 class="py-2 dark:text-white font-sans hover:underline underline-offset-8 hover:font-semibold"><a target="_blank" href="{{ $project->link }}">Demo</a></h6>
+            @endif
+
+
+        </div>
+
+        <!--Tags -->
+        <div class="text-base md:text-sm text-gray-500 px-4 py-6">
+            Tags: @foreach ($tags as $tag)
+                {{ $tag . ","}}
+            @endforeach
+        </div>
 </body>
 
 <script>
 
+    // change background position on mousemove
+    const images = document.querySelectorAll('div[id]');
+    images.forEach(image => {
+        image.addEventListener('mousemove', (e) => {
+            const x = e.offsetX;
+            const y = e.offsetY;
+            const width = e.target.offsetWidth;
+            const height = e.target.offsetHeight;
+            const xPercent = (x / width) * 100;
+            const yPercent = (y / height) * 100;
+            e.target.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+        });
+    });
+
         // fade in page
     function page(){
         document.querySelector('body').classList.remove('opacity-0');
-        card();
     }
 
         // change theme based on user preferences
