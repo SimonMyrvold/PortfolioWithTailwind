@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Termwind\Components\Dd;
 
 class PortfolioController extends Controller
 {
@@ -35,7 +36,23 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+        $roles = "";
+
+        for ($i = 0; $i < count($request->roles); $i++) {
+            $roles .= $request->roles[$i] . ',';
+        }
+
+        portfolio::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'github' => $request->github,
+            'link' => $request->demo,
+            'tags' => $roles,
+            'image' => $this->storeImage($request),
+        ]);
+
+        return redirect()->route('Portfolio.index');
     }
 
     /**
@@ -43,8 +60,14 @@ class PortfolioController extends Controller
      */
     public function show($id)
     {
+        $tags = portfolio::findOrFail($id)->tags;
+        $tags = explode(',', $tags);
+        $count = count($tags);
+        $tags = array_slice($tags, 0, $count - 1);
+
         return view('Portfolio.show', [
             'project' => portfolio::findOrFail($id),
+            'tags' => $tags,
         ]);
     }
 

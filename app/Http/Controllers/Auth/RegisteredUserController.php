@@ -20,7 +20,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        if (User::count() < 1){
+            return view('auth.register');
+        } else {
+            return view('auth.login');
+        }
     }
 
     /**

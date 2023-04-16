@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css">
     @vite(['resources/css/app.css','resources/js/app.js'])
+    <link rel="stylesheet" href="public\pictures">
     <title>Portfolio</title>
 </head>
 <body onload="page()" class="opacity-0 transition-all duration-500">
@@ -21,12 +22,17 @@
             <h1 id="Title" class="text-center m-auto text-5xl text-black dark:text-white font-semibold"></h1>
         </div>
 
-        
         <div class="grid lg:grid-cols-3 lg:w-[1020px] min-[1300px]:w-[1275px] md:grid-cols-2 md:w-[768px] sm:grid-cols-1 sm:w-[640px] max-sm:grid-cols-1 max-sm:w-[90%] gap-y-20 ml-auto mr-auto transition-all pb-24">
             @forEach ($projects as $project)
+
                 <div id="{{ $project->id }}" class="flex flex-col rounded-lg hover:scale-110 transition-all bg-[#fff] opacity-0 duration-1000 hover:duration-500 shadow-2xl m-auto">
                     <a class="flex flex-col gap-2 w-min" href="{{ Route('Portfolio.show', $project->id) }}">
-                        <div class="min-[1300px]:w-[350px] lg:w-[256px] md:w-[256px] sm:w-[256px] max-sm:w-[256px] min-[1300px]:h-[175px] lg:h-[175px] md:h-[175px] sm:h-[175px] max-sm:h-[175px] rounded-t-lg" style="background-image: url(https://picsum.photos/id/{{ $project->id }}/350/175)"></div>
+                        <div 
+                        class="min-[1300px]:w-[350px] lg:w-[256px] md:w-[256px] sm:w-[256px] max-sm:w-[256px] min-[1300px]:h-[175px] lg:h-[175px] md:h-[175px] sm:h-[175px] max-sm:h-[175px] rounded-t-lg" 
+                        style="
+                        background-size: 350px, 256px;
+                        background-image: url('\pictures{{ $picture_link = Str::replace('C:\Users\simon.myrvold\Desktop\PortfolioTailwind\Portfolio\public\pictures\\', '/', $project->image) }}');">
+                        </div>
                         <h3 class="text-center p-2 text-xl">Project {{ $project->title }}</h3>
                         <p class="text-center p-2">{{ $project->description }}</p>
                     </a>
